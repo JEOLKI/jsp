@@ -1,0 +1,9 @@
+요청하는방법
+
+1. 웹브라우저 주소줄에 주소입력 + enter  → GET
+2. 버튼 : form - get // form - post 
+3. link를 클릭해서 연결 → GET 
+
+데이터를 주고 받는 방식
+
+HTTP method : get,post
