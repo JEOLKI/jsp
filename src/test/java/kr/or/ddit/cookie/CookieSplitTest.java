@@ -9,20 +9,33 @@ import org.slf4j.LoggerFactory;
 public class CookieSplitTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(CookieSplitTest.class);
-	
+
 	@Test
-	public void test() {
-		
-		/***Given***/
+	public void getCookieValueSuccessTest() {
+
+		/*** Given ***/
 		CookieSplit cookieSplit = new CookieSplit();
 
-		/***When***/
+		/*** When ***/
 		String cookieValue = cookieSplit.getCookieValue("USERNM");
-		logger.debug(cookieValue);
-		
-		/***Then***/
+
+		/*** Then ***/
 		assertEquals("brown", cookieValue);
-		
+
+	}
+
+	@Test
+	public void getCookieValueFailTest() {
+
+		/*** Given ***/
+		CookieSplit cookieSplit = new CookieSplit();
+
+		/*** When ***/
+		String cookieValue = cookieSplit.getCookieValue("PASSWORD");
+
+		/*** Then ***/
+		assertEquals("", cookieValue);
+
 	}
 
 }

@@ -14,12 +14,14 @@
 <title>Signin Template for Bootstrap</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="<%=request.getContextPath()%>/css/signin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/signin.css" rel="stylesheet">
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/js.cookie-2.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <script type="text/javascript">
 
@@ -35,11 +37,58 @@
 			if(cookie[0] == cookieName) {
 				console.log(cookie[1]);
 			}
-			
 		}
-			
+
+		//원하는 쿠키가 없는경우
+		return "";
+		
 	}
 
+	function setCookie(cookieName, cookieValue, expires) {
+
+		var today = new Date();
+
+		// 현재날짜에서 미래로 + expires 만큼 한 날짜 구하기
+		today.setDate(today.getDate() + expires);
+
+		document.cookie = cookieName + "=" + cookieValue + "; path=/; expires="+ today.toGMTString();
+
+		console.log(document.cookie)
+		
+	}
+
+	// 해당 쿠키의 expires속성을 과거날짜로 변경
+	function deleteCookie(cookieName) {
+		setCookie(cookieName, "", -1);
+	}
+	
+	$(function(){
+		
+		// remember me cookie 확인
+		if(Cookies.get("REMEMBERME") == "Y"){
+			$("#inputEmail").val(Cookies.get("USERNM"));
+			$("input[type=checkbox]").prop("checked", true);
+		};
+
+		// sign in 버튼이 클릭 되었을 때 이벤트 헨들러
+		$("button").on("click", function(){
+
+			if( $("input[type=checkbox]").prop("checked") ){
+				Cookies.set("USERNM", $("#inputEmail").val());
+				Cookies.set("REMEMBERME", "Y");
+			} else {
+				Cookies.remove("USERNM");
+				Cookies.remove("REMEMBERME");
+			}
+
+			// submit
+			$("form").submit();
+
+		})
+
+	});
+
+	
 </script>
 
 
@@ -51,21 +100,18 @@
 
 	<div class="container">
 
-		<form class="form-signin">
+		<form class="form-signin" action="<%= request.getContextPath() %>/login" method="POST">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<label for="inputEmail" class="sr-only">Email address</label> <input
-				type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" required autofocus> <label
-				for="inputPassword" class="sr-only">Password</label> <input
-				type="password" id="inputPassword" class="form-control"
-				placeholder="Password" required>
+			<label for="inputEmail" class="sr-only">Email address</label> 
+			<input type="email" id="inputEmail" name="userId" class="form-control" placeholder="Email address" required autofocus value="brown"> 
+			<label for="inputPassword" class="sr-only">Password</label> 
+			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required value="passBrown">
 			<div class="checkbox">
-				<label> <input type="checkbox" value="remember-me">
-					Remember me
+				<label> 
+					<input type="checkbox" value="remember-me"> Remember me
 				</label>
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
 		</form>
 
 	</div>
