@@ -1,0 +1,7 @@
+DBMS입장에서 동일한 SQL이란?
+모든 문자가 동일한 SQL
+
+다음 SQL은 DBMS 입장에서는 서로 다른 SQL로 인식된다.
+SELECT * FROM mymember;
+SELECT * FROM  mymember;
+SELECt * FROM mymember;
