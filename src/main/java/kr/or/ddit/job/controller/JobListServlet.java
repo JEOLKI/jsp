@@ -30,7 +30,7 @@ public class JobListServlet extends HttpServlet {
 		
 		request.setAttribute("jobList", jobList);
 		
-		logger.debug(jobList.get(0).toString());
+		logger.debug("jobs : {} ", jobList);
 		
 		request.getRequestDispatcher("job/jobList.jsp").forward(request, response);
 	
