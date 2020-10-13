@@ -16,6 +16,8 @@ public class JobDao implements JobDaoI{
 		
 		List<JobVo> jobList = sqlSession.selectList("job.getALlJob");
 		
+		sqlSession.close();
+		
 		return jobList;
 	}
 

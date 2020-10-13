@@ -6,15 +6,21 @@ import kr.or.ddit.job.dao.JobDao;
 import kr.or.ddit.job.dao.JobDaoI;
 import kr.or.ddit.job.model.JobVo;
 
-public class JobService implements JobServiceI{
+public class JobService implements JobServiceI {
+
+	private JobDaoI jobDao;
+
+	public JobService() {
+
+		jobDao = new JobDao();
+
+	}
 
 	@Override
 	public List<JobVo> getAllJob() {
-		
-		JobDaoI jobDao = new JobDao();
-		
+
 		List<JobVo> jobList = jobDao.getAllJob();
-		
+
 		return jobList;
 	}
 
