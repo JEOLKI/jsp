@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form action="<%=request.getContextPath()%>/mulCalculation" method="POST">
+	<form action="${pageContext.request.contextPath }/mulCalculation" method="POST">
 		param1 : <input type="text" name="param1"> <br>
 		param2 : <input type="text" name="param2"> <br>
 		<input type="submit" value="전송">	
