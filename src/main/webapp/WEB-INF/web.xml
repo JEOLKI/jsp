@@ -54,7 +54,7 @@
 
 	
 	<!-- filter 등록 -->
-	<filter>
+<!-- 	<filter>
 		<filter-name>requestCounterFilter</filter-name>
 		<filter-class>kr.or.ddit.filter.RequestCounterFilter</filter-class>
 	</filter>
@@ -62,7 +62,19 @@
 	<filter-mapping>
 		<filter-name>requestCounterFilter</filter-name>
 		<url-pattern>/*</url-pattern>	
-	</filter-mapping>
+	</filter-mapping> -->
+
+	
+	<!-- listener 등록 -->
+	<listener>
+		<listener-class>kr.or.ddit.listener.SessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>kr.or.ddit.listener.SessionAttributeListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>kr.or.ddit.listener.ApplicationListener</listener-class>
+	</listener>
 
 
 	<!-- 에러페이지 설정 -->
