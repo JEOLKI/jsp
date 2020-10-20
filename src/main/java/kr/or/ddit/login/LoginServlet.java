@@ -34,6 +34,9 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		
+		logger.debug("loginServlet doGet");
+	
 	}
 
 	// login 화면에서 사용자가 보낸 아이디 비밀번호를 사용하여 로그인 처리
