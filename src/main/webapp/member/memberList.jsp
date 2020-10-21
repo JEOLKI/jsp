@@ -19,6 +19,24 @@
 
 <%@ include file="/layout/commonLib.jsp" %>
 
+<script>
+
+	$(document).ready(function(){
+		$("#memberList tr").on("click", function(){
+			//console.log("memberList tr click");
+			
+			// data-userid
+			var userid = $(this).data("userid");
+			console.log("userid : " + userid);
+
+			document.location="/member?userid=" + userid;
+			
+		});
+	});
+		
+
+</script>
+
 </head>
 
 <body>
@@ -36,24 +54,25 @@
 				<h2 class="sub-header">사용자</h2>
 					<div class="table-responsive">
 						<table class="table table-striped">
-							<tr>
-								<th>사용자 아이디</th>
-								<th>사용자 이름</th>
-								<th>사용자 별명</th>
-								<th>등록일시</th>
-							</tr>
-							
-							<c:forEach items="${memberList }" var="member">
+							<thead>
 								<tr>
-									<td>${member.userid }</td>
-									<td>${member.usernm } </td>
-									<td>${member.alias } </td>
-									
-									<!-- format : yyyy-MM-dd -->
-									<td><fmt:formatDate value="${member.reg_dt }" pattern="yyyy-MM-dd"/></td>
-							
+									<th>사용자 아이디</th>
+									<th>사용자 이름</th>
+									<th>사용자 별명</th>
+									<th>등록일시</th>
 								</tr>
-							</c:forEach>
+							</thead>
+							<tbody id="memberList">
+								<c:forEach items="${memberList }" var="member">
+									<tr data-userid="${member.userid }">
+										<td>${member.userid }</td>
+										<td>${member.usernm } </td>
+										<td>${member.alias } </td>
+										<!-- format : yyyy-MM-dd -->
+										<td><fmt:formatDate value="${member.reg_dt }" pattern="yyyy-MM-dd"/></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 
