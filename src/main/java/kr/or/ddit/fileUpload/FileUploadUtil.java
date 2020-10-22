@@ -21,4 +21,12 @@ public class FileUploadUtil {
 		return "";
 	}
 	
+	// filename : sally.png => png
+	public static String getExtension(String filename) {
+		
+		if(filename == null || filename.indexOf(".") == -1) return ""; // .이 없을때
+		else return filename.split("\\.")[1];
+		
+	}
+	
 }
