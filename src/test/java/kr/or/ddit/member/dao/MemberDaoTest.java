@@ -32,8 +32,12 @@ public class MemberDaoTest {
 		memberDao = new MemberDao();
 		String userid = "JEOLKI";
 		memberDao.deleteMember(userid);
+	}
+	
+	@After
+	public void reset() {
 		MemberVo memberVo = new MemberVo("brown","brownPass", "브라운", "곰", "",
-				 "", "", "D:\\profile\\brown.png", "brown.png");
+				"", "", "D:\\profile\\brown.png", "brown.png");
 		memberDao.updateMember(memberVo);
 	}
 	

@@ -58,7 +58,6 @@ public class MemberRegistServlet extends HttpServlet {
 		String filename = UUID.randomUUID().toString();
 		String extension = FileUploadUtil.getExtension(realFilename);
 		
-		
 		String filePath = "";
 		if( profile.getSize() > 0 ) {
 			filePath = "D:\\profile\\" + filename + "." + extension;

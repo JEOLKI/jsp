@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -26,8 +27,12 @@ public class MemberServiceTest {
 		memberService = new MemberService();
 		String userid = "JEOLKI";
 		memberService.deleteMember(userid);
+	}
+	
+	@After
+	public void reset() {
 		MemberVo memberVo = new MemberVo("brown","brownPass", "브라운", "곰", "",
-				 "", "", "D:\\profile\\brown.png", "brown.png");
+				"", "", "D:\\profile\\brown.png", "brown.png");
 		memberService.updateMember(memberVo);
 	}
 	

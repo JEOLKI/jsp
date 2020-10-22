@@ -78,7 +78,6 @@
 						<div class="col-sm-10">
 							<img src="${cp }/profileImg?userid=${memberVo.userid}"/>
 							<input type="file" name="realFilename"/>
-							<input type="text" hidden name="org_realFilename" value="${memberVo.realFilename }"/>
 						</div>
 					</div>
 					

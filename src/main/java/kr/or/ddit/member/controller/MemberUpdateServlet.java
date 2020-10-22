@@ -29,6 +29,7 @@ public class MemberUpdateServlet extends HttpServlet {
 	MemberServiceI memberService;
 	MemberVo memberVo;
 	String filePath;
+	String realFilename;
 	
 	@Override
 	public void init() throws ServletException {
@@ -40,6 +41,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		
 		memberVo = memberService.getMember(userid);
 		filePath = memberVo.getFilename();
+		realFilename = memberVo.getRealFilename();
 		request.setAttribute("memberVo", memberVo);
 		
 		request.getRequestDispatcher("member/memberUpdate.jsp").forward(request, response);
@@ -57,7 +59,6 @@ public class MemberUpdateServlet extends HttpServlet {
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
 		String zipcode = request.getParameter("zipcode");
-		String realFilename = request.getParameter("org_realFilename");
 		
 		logger.debug("parameter : {}, {}, {}, {}, {}, {}, {}", userid, usernm, alias, pass, addr1, addr2, zipcode);
 		
