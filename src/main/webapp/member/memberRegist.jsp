@@ -39,7 +39,7 @@
 			// server side - validation
 			// validation 로직은 일단 생략한다.
 
-			$("#frm").submit();
+			$("#frm").submit();	
 			
 		});
 
