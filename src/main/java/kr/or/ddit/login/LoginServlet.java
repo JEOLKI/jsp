@@ -38,9 +38,12 @@ public class LoginServlet extends HttpServlet {
 		logger.debug("loginServlet doGet");
 		logger.debug("UNT_CD parameter : {}", request.getParameter("UNT_CD"));
 		
-		request.getRequestDispatcher("/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/").forward(request, response);
 		
-	
+		// 서블릿의 이름으로 도 가능
+		//request.getServletContext().getNamedDispatcher("default").forward(request, response);
+		// 서버에게 위임하는것
+		// 서버마다 디폴트 서블릿의 이름이 다르다.
 	}
 
 
