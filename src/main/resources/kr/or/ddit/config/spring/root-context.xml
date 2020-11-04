@@ -7,8 +7,8 @@
 
 	<!-- kr.or.ddit 패키지 하위의 클래스중 @Service, @Repository 어노테이션이 붙은 클래스를
 		 스캔하여 스프링 빈으로 생성 
-		 기본설정은 4개인데 2개만 하겟다. false 설정
-		 2개만 등록하기 위해 include-filter 사용 -->
+		 기본설정은 @Controller, @Service, @Repository, @Component 4개인데 2개만 하겟다. 
+		 use-default-filters="false" 설정 2개만 등록하기 위해 include-filter 사용 -->
 	
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
