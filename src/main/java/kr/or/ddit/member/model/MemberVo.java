@@ -13,7 +13,6 @@ public class MemberVo {
 	private String addr1;
 	private String addr2;
 	private String zipcode;
-	private MultipartFile file;
 	private String filename;
 	private String realFilename;
 	private Date reg_dt;

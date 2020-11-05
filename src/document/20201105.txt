@@ -31,4 +31,5 @@ spring : viewName 앞에 접두어를 붙여서 반환
 			
 	model 객체에 속성을 추가햇는데  
 	
-	
+------
+jsp 프로젝트의 member와 관련된 화면, 기능 spring 프로젝트로 이관

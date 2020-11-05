@@ -1,8 +1,11 @@
 package kr.or.ddit.member.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.member.model.MemberVo;
 
@@ -31,6 +34,94 @@ public class MemberRepository implements MemberRepositoryI {
 		sqlSession.close();
 
 		return memberVo;
+	}
+	
+	@Override
+	public List<MemberVo> selectAllMember() {
+
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+
+		List<MemberVo> memberList = sqlSession.selectList("member.selectAllmember");
+
+		// insert, update delete 같은경우에 commit이나 rollback을 한 후에 close 해주어야 한다.
+		// sqlSession.commit();
+		// sqlSession.rollback();
+
+		sqlSession.close();
+
+		return memberList;
+
+	}
+
+	@Override
+	public List<MemberVo> selectMemberPageList(SqlSession sqlSession, PageVo pageVo) {
+		return sqlSession.selectList("member.selectMemberPageList", pageVo);
+	}
+
+	@Override
+	public int selectMemberTotalCnt(SqlSession sqlSession) {
+		return sqlSession.selectOne("member.selectMemberTotalCnt");
+	}
+
+	@Override
+	public int insertMember(MemberVo memberVo) {
+
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int insertCnt = 0;
+		try {
+			insertCnt = sqlSession.insert("member.insertMember", memberVo);
+		} catch (Exception e) {
+			
+		}
+		
+
+		if (insertCnt == 1) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+
+		sqlSession.close();
+
+		return insertCnt;
+	}
+
+	@Override
+	public int deleteMember(String userid) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+
+		int deleteCnt = sqlSession.delete("member.deleteMember", userid);
+		
+		if(deleteCnt == 1) {
+			sqlSession.commit();
+		}
+		else {
+			sqlSession.rollback();
+		}
+		
+		sqlSession.close();
+		
+		
+		return deleteCnt;
+	}
+
+	@Override
+	public int updateMember(MemberVo memberVo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+
+		int updateCnt = sqlSession.delete("member.updateMember", memberVo);
+		
+		if(updateCnt == 1) {
+			sqlSession.commit();
+		}
+		else {
+			sqlSession.rollback();
+		}
+		
+		sqlSession.close();
+		
+		
+		return updateCnt;
 	}
 
 
