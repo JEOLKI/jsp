@@ -86,7 +86,7 @@
 										<li class="active"><span>${i }</span></li>								
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath }/member/view?page=${i }">${i }</a></li>
+										<li><a href="${pageContext.request.contextPath }/member/list?page=${i }">${i }</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

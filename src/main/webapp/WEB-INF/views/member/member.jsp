@@ -28,7 +28,7 @@
 
 		$("#profileDownBtn").on('click', function(){
 			// 사용자 한명의 정보이기 때문에 url에 바로 EL을 사용하여 한명의 정보를 받아올 수 있다.
-			document.location="/member/profileDownload?userid=${memberVo.userid}";
+			document.location="/profileDownload?userid=${memberVo.userid}";
 		})
 		
 	});
@@ -66,7 +66,7 @@
 						<div class="col-sm-10">
 							<%-- <img src="${cp }/profile/${memberVo.filename}"/> --%>
 							
-							<img src="${cp }/member/profileImg?userid=${memberVo.userid }"/> <br>
+							<img src="${cp }/profileImgView?userid=${memberVo.userid }"/> <br>
 							<button id="profileDownBtn" type="button" class="btn btn-default">다운로드 : ${memberVo.realFilename }</button>
 						</div>
 					</div>

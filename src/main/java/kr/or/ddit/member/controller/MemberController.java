@@ -43,14 +43,8 @@ public class MemberController {
 	
 	@RequestMapping(path = "/list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getView(Model model,
-						  @RequestParam(defaultValue = "1" ) int page,
-						  @RequestParam(defaultValue = "5" ) int pageSize) {
-		
-		// page
-		model.addAttribute("page", page);
-		
-		// pageSize
-		model.addAttribute("pageSize", pageSize);
+						  @RequestParam(name="page", defaultValue = "1", required = false) int page,
+						  @RequestParam(name="pageSize", defaultValue = "5", required = false ) int pageSize) {
 		
 		// pageVo : page, pageSize
 		PageVo pageVo = new PageVo(page, pageSize);
@@ -74,70 +68,6 @@ public class MemberController {
 		return "member/member";
 		
 	}
-	
-	@RequestMapping("/profileImg")
-	public String profileImg(String userid, HttpServletResponse response) throws Exception {
-		
-		//response content-type
-		response.setContentType("image/png");
-		
-		// 사용자 아이디 파라미터 확인하고
-		
-		// db에서 사용자 filename 확인하고
-		MemberVo memberVo = memberService.getMember(userid);
-		
-		// 경로 확인 후 파일 입출력을 통해 응답생성
-		// 파일을 읽고
-		// 응답 생성
-		// memberVo.getFilename(); // 파일경로
-
-		FileInputStream fis = new FileInputStream(memberVo.getFilename());
-		ServletOutputStream sos = response.getOutputStream();
-
-		byte[] buffer = new byte[512];
-
-		while (fis.read(buffer) != -1) {
-			sos.write(buffer);
-		}
-	
-		fis.close();
-		sos.flush();
-		sos.close();
-		
-		return "";
-	}
-	
-	@RequestMapping(path = "/profileDownload")
-	public String profileDownload(String userid, HttpServletResponse response) throws Exception {
-		
-		// db에서 사용자 filename 확인하고
-		MemberVo memberVo = memberService.getMember(userid);
-		
-		//response content-type
-		response.setHeader("Content-Disposition", "attachment; filename=\""+ memberVo.getRealFilename() + "\"");
-		response.setContentType("application/octet-stream");
-		
-		// 경로 확인 후 파일 입출력을 통해 응답생성
-		// 파일을 읽고
-		// 응답 생성
-		// memberVo.getFilename(); // 파일경로
-
-		FileInputStream fis = new FileInputStream(memberVo.getFilename());
-		ServletOutputStream sos = response.getOutputStream();
-
-		byte[] buffer = new byte[512];
-
-		while (fis.read(buffer) != -1) {
-			sos.write(buffer);
-		}
-	
-		fis.close();
-		sos.flush();
-		sos.close();
-		
-		return "";
-	}
-	
 	
 	@RequestMapping(path = "/regist" , method = {RequestMethod.GET})
 	public String regist() {
