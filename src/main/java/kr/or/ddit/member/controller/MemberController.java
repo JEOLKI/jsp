@@ -37,7 +37,7 @@ public class MemberController {
 	@Resource(name = "memberService")
 	private MemberServiceI memberService;
 	
-	@RequestMapping(path = "/list")
+	@RequestMapping(path = "/list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String getView(Model model,
 						  @RequestParam(defaultValue = "1" ) int page,
 						  @RequestParam(defaultValue = "5" ) int pageSize) {
@@ -143,11 +143,11 @@ public class MemberController {
 	@RequestMapping(path = "/regist" , method = {RequestMethod.POST})
 	public String regist(MemberVo memberVo, MultipartFile file) {
 		
-		String filename = UUID.randomUUID().toString();
 		
 		String filePath = "";
 		String realFilename = "";
 		if( file.getSize() > 0 ) {
+			String filename = UUID.randomUUID().toString();
 			realFilename = file.getOriginalFilename();
 			String extension = FileUploadUtil.getExtension(realFilename);
 			File uploadFile = new File("D:\\profile\\" + filename + "." + extension);
@@ -159,6 +159,7 @@ public class MemberController {
 			}
 		}
 		
+		// 사용자 정보 등록
 		memberVo.setFilename(filePath);
 		memberVo.setRealFilename(realFilename);
 		

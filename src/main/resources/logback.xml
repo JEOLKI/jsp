@@ -22,7 +22,9 @@
        <appender-ref ref="STDOUT" />
    </logger>
    
-<!--    <root level="DEBUG"> -->
-<!--        <appender-ref ref="STDOUT" /> -->
-<!--    </root> -->
+   <!-- 마이바티스 에러가 루트로 이관 -->
+   <root level="DEBUG">
+       <appender-ref ref="STDOUT" />
+   </root>
+   
 </configuration>
