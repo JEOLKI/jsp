@@ -23,8 +23,8 @@
    </logger>
    
    <!-- 마이바티스 에러가 루트로 이관 -->
-   <root level="DEBUG">
+<!--    <root level="DEBUG">
        <appender-ref ref="STDOUT" />
-   </root>
+   </root> -->
    
 </configuration>

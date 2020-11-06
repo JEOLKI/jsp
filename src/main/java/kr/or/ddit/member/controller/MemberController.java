@@ -11,11 +11,13 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +27,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.fileUpload.FileUploadUtil;
+import kr.or.ddit.member.model.JSRMemberVo;
 import kr.or.ddit.member.model.MemberVo;
+import kr.or.ddit.member.model.MemberVoValidator;
 import kr.or.ddit.member.service.MemberServiceI;
 
 @RequestMapping("/member")
@@ -140,9 +144,17 @@ public class MemberController {
 		return "member/memberRegist";
 	}
 	
+	
 	@RequestMapping(path = "/regist" , method = {RequestMethod.POST})
-	public String regist(MemberVo memberVo, MultipartFile file) {
+	public String regist(@Valid MemberVo memberVo, BindingResult br, MultipartFile file) {
 		
+		// validation
+		//new MemberVoValidator().validate(memberVo, br);
+		
+		// 검증을 통과하지 못했으므로 사용자 등록 화면으로 이동
+		if(br.hasErrors()) {
+			return "member/memberRegist";
+		}
 		
 		String filePath = "";
 		String realFilename = "";

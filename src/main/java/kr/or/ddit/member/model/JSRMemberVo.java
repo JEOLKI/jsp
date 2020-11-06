@@ -3,16 +3,17 @@ package kr.or.ddit.member.model;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
-public class MemberVo {
+public class JSRMemberVo {
 
 	private String userid;
 	private String pass;
 	
+	
 	// Null이면 안되고, empty 체크
 	@NotEmpty
 	private String usernm;
-	
 	private String alias;
 	private String addr1;
 	private String addr2;
@@ -21,11 +22,11 @@ public class MemberVo {
 	private String realFilename;
 	private Date reg_dt;
 	
-	public MemberVo() {
+	public JSRMemberVo() {
 
 	}
 	
-	public MemberVo(String userid, String pass, String usernm, String alias, String addr1, String addr2, String zipcode,
+	public JSRMemberVo(String userid, String pass, String usernm, String alias, String addr1, String addr2, String zipcode,
 			String filename, String realFilename) {
 		this.userid = userid;
 		this.pass = pass;
@@ -143,7 +144,7 @@ public class MemberVo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberVo other = (MemberVo) obj;
+		JSRMemberVo other = (JSRMemberVo) obj;
 		if (addr1 == null) {
 			if (other.addr1 != null)
 				return false;
