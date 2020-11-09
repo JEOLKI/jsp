@@ -55,7 +55,8 @@ public class MemberController {
 		model.addAttribute("memberList", map.get("memberList"));
 		model.addAttribute("pages", map.get("pages"));
 		
-		return "member/memberList";
+		//return "member/memberList";
+		return "tiles/member/memberListContent"; // list
 	}
 	
 	@RequestMapping("/member")
@@ -65,13 +66,13 @@ public class MemberController {
 		
 		model.addAttribute("memberVo", memberVo);
 		
-		return "member/member";
+		return "tiles/member/member";
 		
 	}
 	
 	@RequestMapping(path = "/regist" , method = {RequestMethod.GET})
 	public String regist() {
-		return "member/memberRegist";
+		return "tiles/member/memberRegist";
 	}
 	
 	
@@ -83,7 +84,7 @@ public class MemberController {
 		
 		// 검증을 통과하지 못했으므로 사용자 등록 화면으로 이동
 		if(br.hasErrors()) {
-			return "member/memberRegist";
+			return "tiles/member/memberRegist";
 		}
 		
 		String filePath = "";
@@ -113,7 +114,7 @@ public class MemberController {
 		} 
 		// 1건이 아닐때 : 비정상
 		else {
-			return "member/memberRegist";
+			return "tiles/member/memberRegist";
 		}
 	}
 	
@@ -123,7 +124,7 @@ public class MemberController {
 		MemberVo memberVo = memberService.getMember(userid);
 		model.addAttribute("memberVo", memberVo);
 		
-		return "member/memberUpdate";
+		return "tiles/member/memberUpdate";
 	}
 	
 	@RequestMapping(path = "/update", method = {RequestMethod.POST})

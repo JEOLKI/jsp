@@ -21,7 +21,23 @@
 	<bean id="excelView" class="kr.or.ddit.mvc.view.ExcelDownloadView"/>
 
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="0"></property>
+		<property name="order" value="1"></property>
+	</bean>
+	
+	<!-- tiles view resolver 추가
+		 1. tiles 설정 작업 ==> TilesConfigurer를 통해 설정
+		 2. tiles view resolver 등록 -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:kr/or/ddit/config/tiles/tiles-definition.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		<property name="order" value="0"/>
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,7 +50,8 @@
 			 "/WEB-INF/views/" + "login/view" + ".jsp" 
 			 => "/WEB-INF/views/login/view.jsp" 
 			 -->
-		<property name="order" value="1"></property>
+		<!-- 파일이 없어도 무조건 보내기때문에 우선순위를 마지막으로 항상 설정한다. -->	 
+		<property name="order" value="2"/>
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
@@ -60,4 +77,18 @@
 		 <!-- localhost/resources/style.css -->
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/views/error/" />
 
+	<!-- localeResolver -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+
+	<!-- locale 변경 감지 interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="lang"/>
+			</bean>		
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
 </beans>
