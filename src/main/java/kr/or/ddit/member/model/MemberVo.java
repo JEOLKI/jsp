@@ -2,8 +2,15 @@ package kr.or.ddit.member.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
+@XmlRootElement(name="memberVo")
 public class MemberVo {
 
 	private String userid;
