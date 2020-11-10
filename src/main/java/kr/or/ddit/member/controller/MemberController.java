@@ -59,16 +59,62 @@ public class MemberController {
 		return "tiles/member/memberListContent"; // list
 	}
 	
+	@RequestMapping("/listAjaxPage")
+	public String listAjaxPage() {
+		return "tiles/member/listAjaxPage";
+	}
+	
+	// 페이지 요청(/list와 다르게 page, pageSize 파라미터가 반드시 존재한다는 가정으로 작성)
+	@RequestMapping("/listAjax")
+	public String listAjax(PageVo pageVo, Model model) {
+		logger.debug("pageVo : {}", pageVo);
+		Map<String, Object> map = memberService.selectMemberPageList(pageVo);
+		model.addAttribute("memberList", map.get("memberList"));
+		model.addAttribute("pages", map.get("pages"));
+		// 커맨드객체인 pageVo는 자동으로 model속성에 추가됨
+		return "jsonView";
+	}
+	
+	// 페이지 요청(/list와 다르게 page, pageSize 파라미터가 반드시 존재한다는 가정으로 작성)
+	@RequestMapping("/listAjaxHTML")
+	public String listAjaxHTML(PageVo pageVo, Model model) {
+		logger.debug("pageVo : {}", pageVo);
+		
+		Map<String, Object> map = memberService.selectMemberPageList(pageVo);
+		model.addAttribute("memberList", map.get("memberList"));
+		model.addAttribute("pages", map.get("pages"));
+		// 커맨드객체인 pageVo는 자동으로 model속성에 추가됨
+		
+		// 응답을 html => jsp로 생성
+		return "member/listAjaxHTML"; // 일부분이기때문에 tiles아님
+	}
+	
+	
+	
 	@RequestMapping("/member")
 	public String getMember(Model model, String userid) {
-
 		MemberVo memberVo = memberService.getMember(userid);
-		
 		model.addAttribute("memberVo", memberVo);
-		
 		return "tiles/member/member";
-		
 	}
+	
+	@RequestMapping("/memberAjaxPage")
+	public String getMemberAjaxPage() {
+		return "tiles/member/memberAjaxPage";
+	}
+	
+	@RequestMapping("/memberAjax")
+	public String getMemberAjax(Model model, String userid) {
+		MemberVo memberVo = memberService.getMember(userid);
+		model.addAttribute("memberVo", memberVo);
+		return "jsonView";
+	}
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(path = "/regist" , method = {RequestMethod.GET})
 	public String regist() {

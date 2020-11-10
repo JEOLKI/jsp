@@ -1,5 +1,6 @@
 package kr.or.ddit.member.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonInclude(Include.NON_NULL)
+//@JsonInclude(Include.NON_NULL)
 @XmlRootElement(name="memberVo")
 public class MemberVo {
 
@@ -129,7 +130,12 @@ public class MemberVo {
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
 	}
-
+	
+	// reg_dt에 대해서 포맷팅 // null 처리
+	public String getFmt_reg_dt() {
+		return reg_dt == null ? "" : new SimpleDateFormat("yyyy-MM-dd").format(reg_dt);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
