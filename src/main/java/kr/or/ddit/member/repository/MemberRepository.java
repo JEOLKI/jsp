@@ -2,17 +2,22 @@ package kr.or.ddit.member.repository;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.common.model.PageVo;
-import kr.or.ddit.db.MybatisUtil;
 import kr.or.ddit.member.model.MemberVo;
 
 
 @Repository("memberRepository")
 public class MemberRepository implements MemberRepositoryI {
-
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public MemberVo getMember(String userId) {
 		// 원래는 db에서 데이터를 조회하는 로직이 있어야 하나
@@ -23,7 +28,7 @@ public class MemberRepository implements MemberRepositoryI {
 		 * memberVo.setPassword("passBrown");
 		 */
 
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		//SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		// select
 		// 한건 : selectOne
@@ -31,7 +36,7 @@ public class MemberRepository implements MemberRepositoryI {
 		MemberVo memberVo = sqlSession.selectOne("member.getMember", userId);
 
 		// 사용후 닫아준다.
-		sqlSession.close();
+		//sqlSession.close();
 
 		return memberVo;
 	}
@@ -39,7 +44,7 @@ public class MemberRepository implements MemberRepositoryI {
 	@Override
 	public List<MemberVo> selectAllMember() {
 
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		//SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		List<MemberVo> memberList = sqlSession.selectList("member.selectAllmember");
 
@@ -47,7 +52,7 @@ public class MemberRepository implements MemberRepositoryI {
 		// sqlSession.commit();
 		// sqlSession.rollback();
 
-		sqlSession.close();
+		//sqlSession.close();
 
 		return memberList;
 
@@ -65,41 +70,23 @@ public class MemberRepository implements MemberRepositoryI {
 
 	@Override
 	public int insertMember(MemberVo memberVo) {
-
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
-		int insertCnt = 0;
-		try {
-			insertCnt = sqlSession.insert("member.insertMember", memberVo);
-		} catch (Exception e) {
-			
-		}
-		
-
-		if (insertCnt == 1) {
-			sqlSession.commit();
-		} else {
-			sqlSession.rollback();
-		}
-
-		sqlSession.close();
-
-		return insertCnt;
+		return sqlSession.insert("member.insertMember", memberVo);
 	}
 
 	@Override
 	public int deleteMember(String userid) {
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		//SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		int deleteCnt = sqlSession.delete("member.deleteMember", userid);
 		
-		if(deleteCnt == 1) {
-			sqlSession.commit();
-		}
-		else {
-			sqlSession.rollback();
-		}
-		
-		sqlSession.close();
+//		if(deleteCnt == 1) {
+//			sqlSession.commit();
+//		}
+//		else {
+//			sqlSession.rollback();
+//		}
+//		
+//		sqlSession.close();
 		
 		
 		return deleteCnt;
@@ -107,18 +94,18 @@ public class MemberRepository implements MemberRepositoryI {
 
 	@Override
 	public int updateMember(MemberVo memberVo) {
-		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		//SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		int updateCnt = sqlSession.delete("member.updateMember", memberVo);
 		
-		if(updateCnt == 1) {
-			sqlSession.commit();
-		}
-		else {
-			sqlSession.rollback();
-		}
-		
-		sqlSession.close();
+//		if(updateCnt == 1) {
+//			sqlSession.commit();
+//		}
+//		else {
+//			sqlSession.rollback();
+//		}
+//		
+//		sqlSession.close();
 		
 		
 		return updateCnt;

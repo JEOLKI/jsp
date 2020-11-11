@@ -27,4 +27,30 @@
        <appender-ref ref="STDOUT" />
    </root> -->
    
+   	<logger name="jdbc.connection" >
+        <level value="off"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+ 
+    <logger name="jdbc.audit" additivity="false">
+        <level value="off"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+ 
+    <logger name="jdbc.sqlonly" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+ 
+    <logger name="jdbc.sqltiming" additivity="false">
+        <level value="off"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+ 
+    <logger name="jdbc.resultset" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+   
+   
 </configuration>

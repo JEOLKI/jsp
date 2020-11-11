@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-//@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 @XmlRootElement(name="memberVo")
 public class MemberVo {
 
