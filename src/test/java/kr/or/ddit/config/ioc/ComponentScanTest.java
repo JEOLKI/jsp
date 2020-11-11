@@ -1,6 +1,7 @@
 package kr.or.ddit.config.ioc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Resource;
 
@@ -14,7 +15,7 @@ import kr.or.ddit.board.repository.BoardRepositoryI;
 import kr.or.ddit.board.service.BoardServiceI;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:kr/or/ddit/config/spring/ioc/component-scan.xml" })
+@ContextConfiguration(classes = { JavaSpringScanConfig.class })
 public class ComponentScanTest {
 
 	@Resource(name = "boardRepository")

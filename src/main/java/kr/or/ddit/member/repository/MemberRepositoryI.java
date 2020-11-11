@@ -13,9 +13,9 @@ public interface MemberRepositoryI {
 	
 	List<MemberVo> selectAllMember();
 	
-	List<MemberVo> selectMemberPageList(SqlSession sqlSession, PageVo pageVo);
+	List<MemberVo> selectMemberPageList(PageVo pageVo);
 	
-	int selectMemberTotalCnt(SqlSession sqlSession);
+	int selectMemberTotalCnt();
 
 	int insertMember(MemberVo memberVo);
 	

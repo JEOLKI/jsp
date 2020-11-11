@@ -25,9 +25,6 @@ public class MemberService implements MemberServiceI {
 	@Resource(name = "memberRepository")
 	private MemberRepositoryI memberRepository;
 	
-	@Resource(name="sqlSessionTemplate")
-	private SqlSessionTemplate sqlSession;
-	
 	public MemberService() {
 		// new 연산자가 아닌 빈을 주입하는 형태로 사용하기 위해서 지운다
 		// new MemberRepository();
@@ -51,12 +48,12 @@ public class MemberService implements MemberServiceI {
 		//SqlSession sqlSession = MybatisUtil.getSqlSession();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberList", memberRepository.selectMemberPageList(sqlSession, pageVo));
+		map.put("memberList", memberRepository.selectMemberPageList(pageVo));
 
 		// 15건, 페이지 사이즈를 7로 가정했을때 3개의 페이지가 나와야한다
 		// 15/7 =2.14.. 올림을 하여 3개의 페이지가 필요
 
-		int totalCnt = memberRepository.selectMemberTotalCnt(sqlSession);
+		int totalCnt = memberRepository.selectMemberTotalCnt();
 		int pageSize = pageVo.getPageSize();
 		int pages = (int) Math.ceil((double) totalCnt / pageSize);
 		map.put("pages", pages);
@@ -88,13 +85,13 @@ public class MemberService implements MemberServiceI {
 	}
 
 	@Override
-	public int deleteMember(String userid) {
-		return memberRepository.deleteMember(userid);
-	}
-
-	@Override
 	public int updateMember(MemberVo memberVo) {
 		return memberRepository.updateMember(memberVo);
+	}
+	
+	@Override
+	public int deleteMember(String userid) {
+		return memberRepository.deleteMember(userid);
 	}
 
 }

@@ -79,9 +79,9 @@ public class LoginController {
 	
 	// Model : view객체에서 응답을 생성할 때 참조할 데이터를 담는  객체
 	//		   jsp/servlet 기반의 request 역할을 담당
-	@RequestMapping(path = "/process", params = {"userid"})
+	@RequestMapping(path = "/process", params = {"userid"}, method = {RequestMethod.POST})
 	public String process(String userid, String pass, MemberVo memberVo,
-							@RequestBody String body,
+							@RequestBody(required = false) String body,
 							HttpSession session, Model model,
 							@RequestParam(name = "email",
 										  required = false,

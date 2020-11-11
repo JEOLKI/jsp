@@ -1,12 +1,16 @@
 package kr.or.ddit;
 
-import static org.junit.Assert.*;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,11 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:kr/or/ddit/config/spring/root-context.xml",
-									"classpath:kr/or/ddit/config/spring/application-context.xml" })
+									"classpath:kr/or/ddit/config/spring/application-context.xml",
+									"classpath:kr/or/ddit/config/spring/datasource-context_dev.xml",
+									"classpath:kr/or/ddit/config/spring/transaction-context.xml" })
 @WebAppConfiguration // 스프링 컨테이너를 웹기반에서 동작하는 컨테이너로 생성하는 옵션 // LoginController는 웹기반에서 돌아가기때문에 설정을 // 해줘야한다. (@Controller, @RequestMapping)
+@Ignore
 public class WebTestConfig {
 
 	// 테스트 대상 클래스 : LoginController
@@ -42,6 +48,9 @@ public class WebTestConfig {
 	private WebApplicationContext context;
 
 	protected MockMvc mockMvc; // dispatcher servlet 역할을 하는 객체
+	
+	@Resource(name = "dataSource")
+	private DataSource dataSource;
 
 	/*
 	 * @Before(setup) => @Test => @After(tearDown)
@@ -50,6 +59,11 @@ public class WebTestConfig {
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+		
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+		populator.addScripts(new ClassPathResource("/kr/or/ddit/config/db/initData.sql")); // 사용할 스크립트 경로
+		populator.setContinueOnError(false); // 스크립트 실행중 에러 발생시 멈춤
+		DatabasePopulatorUtils.execute(populator, dataSource);
 	}
 
 	// get(),post() : get/post 요청
@@ -62,7 +76,7 @@ public class WebTestConfig {
 	
 	@Ignore
 	@Test
-	public void test() {
+	public void dummy() {
 	}
 
 }

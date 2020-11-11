@@ -110,12 +110,6 @@ public class MemberController {
 		return "jsonView";
 	}
 	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(path = "/regist" , method = {RequestMethod.GET})
 	public String regist() {
 		return "tiles/member/memberRegist";
@@ -152,16 +146,19 @@ public class MemberController {
 		memberVo.setFilename(filePath);
 		memberVo.setRealFilename(realFilename);
 		
-		int insertCnt = memberService.insertMember(memberVo);
-		
-		// 1건이 입력되었을 때 : 정상 - memberList 페이지로 이동
-		if ( insertCnt == 1 ) {
-			return "redirect:/member/list";
-		} 
-		// 1건이 아닐때 : 비정상
-		else {
-			return "tiles/member/memberRegist";
+		int insertCnt = 0;
+		try {
+			insertCnt = memberService.insertMember(memberVo);
+
+			// 1건이 입력되었을 때 : 정상 - memberList 페이지로 이동
+			if ( insertCnt == 1 ) {
+				return "redirect:/member/list";
+			} 
+		} catch (Exception e) {
 		}
+		
+		// 1건이 아닐때 : 비정상
+		return "tiles/member/memberRegist";
 	}
 	
 	@RequestMapping(path = "/update", method = {RequestMethod.GET} )
