@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
 
@@ -32,7 +33,7 @@
 			success : function(data){
 				
 				$('#proimg').attr('src', '${cp }/profileImgView?userid=' + data.memberVo.userid);
-				$('#profileDownBtn').text("다운로드 : " + data.memberVo.realFilename);
+				$('#profileDownBtn').html("다운로드 : " + data.memberVo.realFilename);
 				$('#userid').html(data.memberVo.userid);
 				$('#usernm').html(data.memberVo.usernm);
 				$('#alias').html(data.memberVo.alias);
@@ -55,7 +56,7 @@
 		<label for="userNm" class="col-sm-2 control-label">사용자 사진</label>
 		<div class="col-sm-10">
 			<img id="proimg" src=""/><br>
-			<button id="profileDownBtn" type="button" class="btn btn-default">dd</button>
+			<button id="profileDownBtn" type="button" class="btn btn-default"></button>
 		</div>
 	</div>
 	

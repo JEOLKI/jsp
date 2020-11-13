@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ModelTestConfig;
 import kr.or.ddit.common.model.PageVo;
-import kr.or.ddit.db.MybatisUtil;
+import kr.or.ddit.config.db.MybatisUtil;
 import kr.or.ddit.member.model.MemberVo;
 
 public class MemberRepositoryTest extends ModelTestConfig {

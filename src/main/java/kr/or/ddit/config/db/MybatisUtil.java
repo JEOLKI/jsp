@@ -1,4 +1,4 @@
-package kr.or.ddit.db;
+package kr.or.ddit.config.db;
 
 import java.io.IOException;
 import java.io.InputStream;
