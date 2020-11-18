@@ -25,7 +25,7 @@
 		 인터페이스에 정의되어 있는 getObject() 메소드가 리턴하는 객체를 스프링 빈으로 등록한다.
 	 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:ourbox/common/config/db/mybatis-config.xml"/>
+		<property name="configLocation" value="classpath:kr.or.ddit/config/db/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	

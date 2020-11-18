@@ -40,9 +40,7 @@ public class LoginControllerTest extends WebTestConfig{
 		MvcResult result = mockMvc.perform(post("/login/process")
 											.param("userid", "brown")
 											.param("pass", "brownPassFail")).andReturn();
-		
 		ModelAndView mav = result.getModelAndView();
-		
 		assertEquals("fail", mav.getModel().get("msg")); 
 		assertEquals("login/view", mav.getViewName()); 
 	}
