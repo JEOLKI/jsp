@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--  job Repository : db를 사용하지 않는 형식상의 jobRepository-MapJobRepositoryFactoryBean-->
+	<!--  job에대한 실행결과를 저장한다
+		  생성자에 파라미터가 있는것도 있다. 트랜잭션매니저의 차이 -->
+	<bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"/>
+	
+	<!-- job launcher : SimpleJobLauncher 잡을 실행하기 위함 -->
+	<bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository"/>
+	</bean>
+	
+	<!-- 하나씩 bean 적용하지않고도 컴포넌트 스캔을 이용할수 있다. -->
+	<bean id="basicReader" class="kr.or.ddit.batch.basic.BasicReader"/>
+	<bean id="basicProcessor" class="kr.or.ddit.batch.basic.BasicProcessor"/>
+	<bean id="basicWriter" class="kr.or.ddit.batch.basic.BasicWriter"/>
+	
+	<!-- step에서 기본적으로 사용하는 트랜잭션 매니저, 이름이 정해짐 - transactionManager 
+		 기본이름을 사용하지 않을경우 tasklet transaction-manager 속성에등록
+		 현재는 이름을 이미 사용하고 있기때문에 다른것으로 변경-->
+	<bean id="resourcelessTX" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
+	
+	<batch:job id="basicJob">
+		<batch:step id="basicStep">
+			<batch:tasklet transaction-manager="resourcelessTX">
+				<batch:chunk reader="basicReader"
+							 processor="basicProcessor"
+							 writer="basicWriter" 
+							 commit-interval="1"/> <!-- 1 : 한개씩 커밋을 하겟다 -->
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+	
+	<!-- batch test util -->
+	<bean class="org.springframework.batch.test.JobLauncherTestUtils"/>
+	
+</beans>
